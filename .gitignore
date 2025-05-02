@@ -1,0 +1,14 @@
+# Arquivos do diretório
+DadosExtraidos/
+Dimensões/
+DadosSQL/
+DadosFTP/
+
+# Logging
+app.log
+
+# Arquivo pbix
+*.pbix
+
+# API
+skilful-rite-458422-j6-230138870b59.json
