@@ -23,7 +23,14 @@ if not logger.handlers:
 logger.propagate = False
 
 def instalar_dependencias():
-    pacotes = ['py7zr','python-dotenv']
+    pacotes = [
+        'google-cloud-bigquery',
+        'py7zr',
+        'python-dotenv',
+        'psycopg2-binary',
+        'apscheduler',
+        'openpyxl'
+    ]
 
     for pacote in pacotes:
         try:

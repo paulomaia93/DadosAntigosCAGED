@@ -1,0 +1,7 @@
+version: '3'
+
+services:
+  caged:
+    build:
+      context: ./
+    network_mode: "host"

@@ -1,21 +1,8 @@
-
-Criar Consulta (Data Mínima Manual):
-Passos:
-1. no Power Query cria uma consulta nova com o nome 
-#date(2020, 01, 01) meta [IsParameterQuery=true, Type="Date", IsParameterQueryRequired=true]
-
-Criar Consulta (Data Máxima Manual):
-#date(2023, 8, 31) meta [IsParameterQuery=true, Type="Date", IsParameterQueryRequired=true]
-
-
-
-Criar Consulta (dCalendario):
-
 let
 Fonte = 
-    #"Data Máxima Manual"-#"Data Mínima Manual",
+    #"Data Máxima"-#"Data Mínima",
     #"Dias Extraídos" = Duration.Days(Fonte) + 1,
-    #"Criar Tabela Calendário" = List.Dates(#"Data Mínima Manual",#"Dias Extraídos",#duration(1,0,0,0)),
+    #"Criar Tabela Calendário" = List.Dates(#"Data Mínima",#"Dias Extraídos",#duration(1,0,0,0)),
     #"Convertido para Tabela" = Table.FromList(#"Criar Tabela Calendário", Splitter.SplitByNothing(), null, null, ExtraValues.Error),
     #"Colunas Renomeadas" = Table.RenameColumns(#"Convertido para Tabela",{{"Column1", "Data"}}),
     #"Tipo Alterado" = Table.TransformColumnTypes(#"Colunas Renomeadas",{{"Data", type date}}),
