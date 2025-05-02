@@ -26,6 +26,10 @@ logger.propagate = False
 logger.info("ELT DOS DADOS CAGED")
 logger.info("=" * 60)
 
+week = '*'
+hrs = 1
+mins = 0
+
 def executar_script(nome_arquivo):
 
     caminho_absoluto = os.path.join(os.path.dirname(__file__), nome_arquivo)
@@ -78,6 +82,15 @@ sequencia_funcoes = [
     lambda: executar_script('MinMax.py')
 ]
 
-executar_funcoes(sequencia_funcoes)
+scheduler = BlockingScheduler()
+
+scheduler.add_job(executar_funcoes, 'cron', day_of_week=week, hour=hrs, minute=mins,misfire_grace_time=3600, args=[sequencia_funcoes])
+
+timeagendador = datetime.datetime.now()
+logger.info("-" * 60)
+logger.info(f"-- Agendador iniciado {timeagendador.strftime('%d/%m/%Y %H:%M:%S')} --")
+logger.info("-" * 60)
+
+scheduler.start()
 
 
