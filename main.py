@@ -3,6 +3,7 @@ import os
 import datetime
 import logging
 
+# Configuração do logger para registrar as execuções no console e em arquivo
 logger = logging.getLogger("app")
 logger.setLevel(logging.INFO)
 
@@ -23,10 +24,11 @@ if not logger.handlers:
 
 logger.propagate = False
 
+# Início do processo de ETL com logs informativos
 logger.info("ELT DOS DADOS CAGED")
 logger.info("=" * 60)
 
-
+# Função para executar scripts Python individualmente, registrando o sucesso ou falha
 def executar_script(nome_arquivo):
 
     caminho_absoluto = os.path.join(os.path.dirname(__file__), nome_arquivo)
@@ -41,6 +43,7 @@ def executar_script(nome_arquivo):
     else:
         logger.warning(f"O arquivo '{nome_arquivo}' não foi encontrado no diretório.")
 
+# Formata o tempo de execução em horas:minutos:segundos
 def formatar_duracao(tempo_segundos):
 
     horas = int(tempo_segundos // 3600)
@@ -48,6 +51,7 @@ def formatar_duracao(tempo_segundos):
     segundos = int(tempo_segundos % 60)
     return f"{horas:02}:{minutos:02}:{segundos:02}"
 
+# Executa a lista de funções sequencialmente, calculando e logando o tempo de execução de cada uma
 def executar_funcoes(sequencia_funcoes):
 
     tempo_total = 0
@@ -72,6 +76,7 @@ def executar_funcoes(sequencia_funcoes):
     logger.info(f"-- Aguardando o próximo agendamento --")
     logger.info("+" * 60)
 
+# Definição da ordem de execução dos scripts externos
 sequencia_funcoes = [
     lambda: executar_script('dependencies.py'),
     lambda: executar_script('exportsSQL.py'),
@@ -79,4 +84,6 @@ sequencia_funcoes = [
     lambda: executar_script('MinMax.py')
 ]
 
-executar_funcoes(sequencia_funcoes)
+# Execução principal da aplicação
+if __name__ == "__main__":
+    executar_funcoes(sequencia_funcoes)
