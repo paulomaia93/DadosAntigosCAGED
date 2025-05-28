@@ -1,7 +1,0 @@
-python-dotenv
-psycopg2-binary
-google-cloud-bigquery
-python-dotenv
-py7zr
-apscheduler
-openpyxl

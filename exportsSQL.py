@@ -59,7 +59,7 @@ def export_to_csv(tabela, output_file):
     SELECT
         ano AS Competencia_Declarada_Ano,
         mes AS Competencia_Declarada_Mes,
-        id_municipio_6 AS Municipio
+        id_municipio_6 AS Municipio,
         admitidos_desligados AS Admitidos_Desligados,
         cbo_2002 AS CBO_2002_Ocupacao,
         cnae_2_subclasse AS CNAE_2_SubClasse,

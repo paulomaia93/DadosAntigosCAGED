@@ -2,7 +2,6 @@ import subprocess
 import os
 import datetime
 import logging
-from apscheduler.schedulers.blocking import BlockingScheduler
 
 logger = logging.getLogger("app")
 logger.setLevel(logging.INFO)
@@ -27,9 +26,6 @@ logger.propagate = False
 logger.info("ELT DOS DADOS CAGED")
 logger.info("=" * 60)
 
-week = '*'
-hrs = 1
-mins = 0
 
 def executar_script(nome_arquivo):
 
@@ -83,15 +79,4 @@ sequencia_funcoes = [
     lambda: executar_script('MinMax.py')
 ]
 
-scheduler = BlockingScheduler()
-
-scheduler.add_job(executar_funcoes, 'cron', day_of_week=week, hour=hrs, minute=mins,misfire_grace_time=3600, args=[sequencia_funcoes])
-
-timeagendador = datetime.datetime.now()
-logger.info("-" * 60)
-logger.info(f"-- Agendador iniciado {timeagendador.strftime('%d/%m/%Y %H:%M:%S')} --")
-logger.info("-" * 60)
-
-scheduler.start()
-
-
+executar_funcoes(sequencia_funcoes)
